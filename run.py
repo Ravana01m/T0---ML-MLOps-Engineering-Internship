@@ -10,7 +10,7 @@ import pandas as pd
 import yaml
 
 
-# ---------- Logger ----------
+
 def setup_logger(log_file):
     logging.basicConfig(
         filename=log_file,
@@ -19,7 +19,7 @@ def setup_logger(log_file):
     )
 
 
-# ---------- CLI ----------
+
 def parse_args():
     parser = argparse.ArgumentParser()
 
@@ -30,15 +30,11 @@ def parse_args():
 
     return parser.parse_args()
 
-
-# ---------- Metrics ----------
 def write_metrics(path, data):
     Path(path).parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w") as f:
         json.dump(data, f, indent=4)
 
-
-# ---------- Config ----------
 def load_config(path):
     try:
         with open(path) as f:
@@ -51,15 +47,12 @@ def load_config(path):
 
     return config
 
-
-# ---------- Data Loader (FINAL FIX) ----------
 def load_data(path):
     try:
         df = pd.read_csv(path)
     except:
         raise ValueError("Invalid CSV")
 
-    # 🔥 If file is broken (everything in one column)
     if len(df.columns) == 1:
         raw = df.iloc[:, 0]
 
@@ -72,50 +65,36 @@ def load_data(path):
             "close", "volume_btc", "volume_usd"
         ]
 
-    # normalize
     df.columns = df.columns.str.strip().str.lower()
-
     if "close" not in df.columns:
         raise ValueError(f"close column missing: {df.columns.tolist()}")
-
     # convert numeric safely
     df["close"] = pd.to_numeric(df["close"], errors="coerce")
-
-    # remove bad rows
     df = df.dropna(subset=["close"])
-
     return df
 
 
-# ---------- Main ----------
 def main():
     args = parse_args()
     setup_logger(args.log_file)
-
     start = time.time()
-
     try:
         logging.info("Job started")
 
         config = load_config(args.config)
         np.random.seed(config["seed"])
-
         logging.info(f"Config loaded: {config}")
-
         df = load_data(args.input)
         logging.info(f"Rows loaded: {len(df)}")
 
         # Processing
         df["rolling_mean"] = df["close"].rolling(config["window"]).mean()
         df = df.dropna()
-
         df["signal"] = (df["close"] > df["rolling_mean"]).astype(int)
-
         # Metrics
         rows = len(df)
         signal_rate = df["signal"].mean()
         latency = int((time.time() - start) * 1000)
-
         metrics = {
             "version": config["version"],
             "rows_processed": rows,
@@ -127,10 +106,8 @@ def main():
         }
 
         write_metrics(args.output, metrics)
-
         logging.info(f"Metrics: {metrics}")
         logging.info("Job completed")
-
         print(json.dumps(metrics, indent=4))
         return 0
 
@@ -140,14 +117,11 @@ def main():
             "status": "error",
             "error_message": str(e)
         }
-
         write_metrics(args.output, error)
-
         logging.error(str(e))
         print(json.dumps(error, indent=4))
 
         return 1
-
 
 if __name__ == "__main__":
     sys.exit(main())

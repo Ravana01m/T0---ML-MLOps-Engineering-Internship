@@ -1,0 +1,25 @@
+2026-03-26 03:25:05,872 - INFO - ===== JOB STARTED =====
+2026-03-26 03:25:05,873 - INFO - Config loaded: {'seed': 42, 'window': 5, 'version': 'v1'}
+2026-03-26 03:25:05,894 - ERROR - ERROR: Missing 'close' column
+2026-03-26 03:25:05,894 - INFO - ===== JOB FAILED =====
+2026-03-26 03:29:45,073 - INFO - ===== JOB STARTED =====
+2026-03-26 03:29:45,074 - INFO - Config loaded: {'seed': 42, 'window': 5, 'version': 'v1'}
+2026-03-26 03:29:45,102 - ERROR - ERROR: Missing 'close' column
+2026-03-26 03:29:45,102 - INFO - ===== JOB FAILED =====
+2026-03-26 03:33:47,901 - INFO - ===== JOB STARTED =====
+2026-03-26 03:33:47,902 - INFO - Config loaded: {'seed': 42, 'window': 5, 'version': 'v1'}
+2026-03-26 03:33:47,935 - ERROR - ERROR: arg must be a list, tuple, 1-d array, or Series
+2026-03-26 03:33:47,936 - INFO - ===== JOB FAILED =====
+2026-03-26 03:36:06,495 - INFO - Job started
+2026-03-26 03:36:06,496 - INFO - Config: {'seed': 42, 'window': 5, 'version': 'v1'}
+2026-03-26 03:36:06,515 - ERROR - close column missing, found: ['2024-01-01 00:00:00', '44910.83', '45085.78', '44910.83', '45024.68', '3.640837', '163927.55']
+2026-03-26 03:38:36,549 - INFO - Job started
+2026-03-26 03:38:36,551 - INFO - Config loaded: {'seed': 42, 'window': 5, 'version': 'v1'}
+2026-03-26 03:38:36,596 - INFO - Rows loaded: 10000
+2026-03-26 03:38:36,609 - INFO - Metrics: {'version': 'v1', 'rows_processed': 9996, 'metric': 'signal_rate', 'value': 0.4991, 'latency_ms': 59, 'seed': 42, 'status': 'success'}
+2026-03-26 03:38:36,610 - INFO - Job completed
+2026-03-26 03:38:46,964 - INFO - Job started
+2026-03-26 03:38:46,964 - INFO - Config loaded: {'seed': 42, 'window': 5, 'version': 'v1'}
+2026-03-26 03:38:46,991 - INFO - Rows loaded: 10000
+2026-03-26 03:38:46,996 - INFO - Metrics: {'version': 'v1', 'rows_processed': 9996, 'metric': 'signal_rate', 'value': 0.4991, 'latency_ms': 31, 'seed': 42, 'status': 'success'}
+2026-03-26 03:38:46,996 - INFO - Job completed
